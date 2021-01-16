@@ -1,29 +1,39 @@
 from pathlib import Path
 import csv
 import os
+import sys
 
-# get CSV file path
-directry = Path(str(Path.home()) + r"\*****")
-csv_list = list(directry.glob("***.csv"))
+def main():
+    argvs = sys.argv
+    if len(argvs) != 3:
+        print("Usage: python3 {}'file path'".format(argvs[0]))
+        exit()
 
-# open CSV file
-csv_file = open("./*****.csv",'r')
+    # get CSV file path
+    directry = Path(str(Path.home()) + r"\twint")
+    csv_list = list(directry.glob(argvs[1] + ".csv"))
 
-# get row
-a_list = []
-for row in csv.reader(csv_file):
-    a_list.append(row[10]) # specified row number (0 start) you want
+    # open CSV file
+    csv_file = open("./" + argvs[1] + ".csv", 'r')
 
-# remove head row
-del a_list[0]
+    # get row
+    a_list = []
+    for row in csv.reader(csv_file):
+        a_list.append(row[10]) # specified row number (0 start) you want
 
-# make text data to write to text data
-a_text = ""
-for a in reversed(a_list):
-    a_text += a
-    a_text += "\n"
+    # remove head row
+    del a_list[0]
 
-# write text file
-a_file = open("./*****.txt", "w")
-a_file.writelines(a_text)
-a_file.close()
+    # make text data to write to text data
+    a_text = ""
+    for a in reversed(a_list):
+        a_text += a
+        a_text += "\n"
+
+    # write text file
+    a_file = open("./" + argvs[2] + ".txt", "w")
+    a_file.writelines(a_text)
+    a_file.close()
+
+if __name__ == "__main__":
+    main()
